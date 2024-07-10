@@ -1,3 +1,7 @@
-export interface ISumRepository {
-  addOperationSum(number1: number, number2: number, result: number): void;
+export abstract class ISumRepository {
+  abstract addOperationSum(
+    number1: number,
+    number2: number,
+    result: number,
+  ): void;
 }

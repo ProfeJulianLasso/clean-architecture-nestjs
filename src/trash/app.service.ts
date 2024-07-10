@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { IResult } from './result.interface';
-import { Result } from './result.class';
+import { Result } from '../result.class';
+import { IResult } from '../result.interface';
 
 @Injectable()
 export class AppService {
