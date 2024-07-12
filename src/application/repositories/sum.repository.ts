@@ -3,5 +3,5 @@ export abstract class ISumRepository {
     number1: number,
     number2: number,
     result: number,
-  ): void;
+  ): Promise<void>;
 }

@@ -1,23 +1,19 @@
 import { Module } from '@nestjs/common';
-import { OperationController } from './controllers/operation.controller';
 import { Application } from '../application/application.class';
 import { IApplication } from '../application/application.interface';
-import { IAggregate } from '../domain/aggregates/aggregate.interface';
-import { Aggregate } from '../domain/aggregates/aggregate.class';
 import { ISumRepository } from '../application/repositories/sum.repository';
-import { SumRepository } from './persistence/repositories/sum.repository';
+import { Aggregate } from '../domain/aggregates/aggregate.class';
+import { IAggregate } from '../domain/aggregates/aggregate.interface';
+import { OperationController } from './controllers/operation.controller';
+import { PersistenceModule } from './persistence/persistence.module';
 
 @Module({
-  imports: [],
+  imports: [PersistenceModule],
   controllers: [OperationController],
   providers: [
     {
       provide: IAggregate,
       useClass: Aggregate,
-    },
-    {
-      provide: ISumRepository,
-      useClass: SumRepository,
     },
     {
       provide: IApplication,
