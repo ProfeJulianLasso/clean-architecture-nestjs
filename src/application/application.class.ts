@@ -7,13 +7,10 @@ import { ISumRepository } from './repositories/sum.repository';
 import { AddUseCase } from './use-cases/add.use-case';
 
 export class Application implements IApplication {
-  private readonly domain: IAggregate;
-  private readonly repository: ISumRepository;
-
-  constructor(aggregate: IAggregate, repository: ISumRepository) {
-    this.domain = aggregate;
-    this.repository = repository;
-  }
+  constructor(
+    private readonly domain: IAggregate,
+    private readonly repository: ISumRepository,
+  ) {}
 
   sumOperation(data: SumDto, token: string): IResult<number> {
     const useCase = new AdministratorDecorator<SumDto, number>(
