@@ -1,17 +1,13 @@
-import {
-  Controller,
-  Get,
-  HttpException,
-  HttpStatus,
-  Query,
-} from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { IApplication } from '../../application/application.interface';
 import { SumDto } from '../../application/dto/sum.dto';
-import { Errors } from '../../errors.enum';
+import { BaseController } from './base.controller';
 
 @Controller()
-export class OperationController {
-  constructor(private readonly application: IApplication) {}
+export class OperationController extends BaseController {
+  constructor(private readonly application: IApplication) {
+    super();
+  }
 
   @Get()
   sum(@Query('num1') num1: number, @Query('num2') num2: number): number {
@@ -21,19 +17,7 @@ export class OperationController {
     const sumDto = new SumDto(num1, num2);
     const result = this.application.sumOperation(sumDto, 'token');
 
-    if (result.isFailure) {
-      switch (result.code) {
-        case Errors.INVALID_TOKEN:
-          throw new HttpException(result.error, HttpStatus.UNAUTHORIZED);
-        case Errors.INVALID_NUMBER:
-          throw new HttpException(result.error, HttpStatus.BAD_REQUEST);
-        default:
-          throw new HttpException(
-            result.error,
-            HttpStatus.INTERNAL_SERVER_ERROR,
-          );
-      }
-    }
+    this.HandleError(result);
 
     return result.value;
   }

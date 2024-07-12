@@ -2,15 +2,13 @@ import { IAggregate } from '../../domain/aggregates/aggregate.interface';
 import { IResult } from '../../result.interface';
 import { SumDto } from '../dto/sum.dto';
 import { ISumRepository } from '../repositories/sum.repository';
+import { IUseCase } from './interfaces/use-case.interface';
 
-export class AddUseCase {
-  private readonly domain: IAggregate;
-  private readonly repository: ISumRepository;
-
-  constructor(aggregate: IAggregate, repository: ISumRepository) {
-    this.domain = aggregate;
-    this.repository = repository;
-  }
+export class AddUseCase implements IUseCase<SumDto, number> {
+  constructor(
+    private readonly domain: IAggregate,
+    private readonly repository: ISumRepository,
+  ) {}
 
   execute(data: SumDto): IResult<number> {
     const result = this.domain.sumOperation(data.number1, data.number2);
