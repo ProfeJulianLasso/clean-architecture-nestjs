@@ -5,10 +5,10 @@ import { ISumRepository } from '../application/repositories/sum.repository';
 import { Aggregate } from '../domain/aggregates/aggregate.class';
 import { IAggregate } from '../domain/aggregates/aggregate.interface';
 import { OperationController } from './controllers/operation.controller';
-import { PersistenceModule } from './persistence/persistence.module';
+import { NoSqlModule } from './no-sql/no-sql.module';
 
 @Module({
-  imports: [PersistenceModule],
+  imports: [NoSqlModule],
   controllers: [OperationController],
   providers: [
     {

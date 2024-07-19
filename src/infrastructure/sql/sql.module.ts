@@ -32,4 +32,4 @@ import { SumEntity } from './entities/sum.entity';
     },
   ],
 })
-export class PersistenceModule {}
+export class SQLModule {}
