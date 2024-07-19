@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, ParseIntPipe, Query } from '@nestjs/common';
 import { IApplication } from '../../application/application.interface';
 import { SumDto } from '../../application/dto/sum.dto';
 import { BaseController } from './base.controller';
@@ -10,10 +10,10 @@ export class OperationController extends BaseController {
   }
 
   @Get()
-  sum(@Query('num1') num1: number, @Query('num2') num2: number): number {
-    num1 = Number(num1);
-    num2 = Number(num2);
-
+  sum(
+    @Query('num1', ParseIntPipe) num1: number,
+    @Query('num2', ParseIntPipe) num2: number,
+  ): number {
     const sumDto = new SumDto(num1, num2);
     const result = this.application.sumOperation(sumDto, 'token');
 
